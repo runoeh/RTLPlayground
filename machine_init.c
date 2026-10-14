@@ -85,6 +85,22 @@ void machine_custom_init(void) __banked
 	REG_SET(RTL837X_PIN_MUX_0, 0x30db68bf);
 }
 
+#elif defined MACHINE_HASIVO_S600P_4G_1XTG_1S
+void machine_custom_init(void) __banked
+{
+	uint16_t pval;
+
+	// The RX lane from the RTL8261 to SDS0 needs both polarity bits,
+	// otherwise the 10G copper port links but never receives a frame.
+	// Neither sds_init() nor sds_config() touches these bits later.
+	sds_read(0, 6, 2);
+	pval = SFR_DATA_U16;
+	sds_write_v(0, 6, 2, pval | 0x6000);
+
+	// The power LED is the system LED, but wired with inverted polarity
+	reg_bit_clear(RTL837X_REG_LED_GLB_ACTIVE, 28);
+}
+
 #elif defined MACHINE_FG_4GT_2SX_V2_0
 void machine_custom_init(void) __banked
 {

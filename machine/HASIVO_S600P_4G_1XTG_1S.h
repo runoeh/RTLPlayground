@@ -1,0 +1,6 @@
+#ifndef _MACHINE_HASIVO_S600P_4G_1XTG_1S_H_
+#define _MACHINE_HASIVO_S600P_4G_1XTG_1S_H_
+
+#define MACHINE_MODEL "Hasivo S600P-4G-1XTG-1S+"
+
+#endif
